@@ -1,5 +1,5 @@
 // backend/initAdminUser.js
-const User = require("./models/User"); // Import du modèle User
+const User = require("../models/User");
 const bcrypt = require("bcrypt");
 
 async function initAdminUser() {

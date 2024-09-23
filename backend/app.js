@@ -4,7 +4,9 @@ const bodyParser = require("body-parser");
 const helmet = require("helmet");
 // const winstonLog = require("./middlewares/winston-config");
 
-// const userRoutes = require("./routes/user");
+const userRoutes = require("./routes/UserRoutes");
+
+const initAdminUser = require("./scripts/initAdminUser");
 
 const path = require("path");
 
@@ -14,7 +16,10 @@ mongoose
     "mongodb+srv://les54yt:4bCjZyiwPhnEjMmw@cluster0.6w5hv.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
     { useNewUrlParser: true, useUnifiedTopology: true }
   )
-  .then(() => console.log("Connexion à MongoDB réussie - Bingo!"))
+  .then(() => {
+    console.log("Connexion à MongoDB réussie - Bingo!");
+    initAdminUser(); // Appele la fonction pour initialiser l'utilisateur admin
+  })
   .catch(() => console.log("Connexion à MongoDB échouée !"));
 
 const app = express();
@@ -52,8 +57,7 @@ app.use(
 
 app.use(bodyParser.json());
 
-// app.use("/api/users", userRoutes);
-// app.use("/api/invoices", invoiceRoutes);
+app.use("/api/users", userRoutes);
 
 app.use(express.static(path.join(__dirname, "../client/build")));
 app.get("*", (req, res) => {
