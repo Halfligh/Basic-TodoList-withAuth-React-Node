@@ -9,11 +9,14 @@ Frontend
 - Initialisation du projet avec Create React App
 - Strucuration du projet en frontend/backend 
 
+Backend
+- Initialisation du package.json avec npm init
+- Installation des dépendances nécessaires (mongoose, express, bcrypt, helmet)
+- Configuration du server et de sa connexion à la base de données
 
 Base de donnée
 - Création de la base de données sur mongoDB avec l'email : les54yt@gmail.com
 - Création de l'architecture avec les différents dossiers 
 - Création du script implémentant la fonctionnalité similaire au CLR pour créé automatiquement un utilisateur admin 
-- Installation de mongoDB dans le projet 
-- Installation d'Express
-- Configuration du server et de sa connexion à la base de données
+
+
