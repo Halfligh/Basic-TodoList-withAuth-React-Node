@@ -4,7 +4,7 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const userRoutes = require("./routes/userRoutes");
 const authRoutes = require("./routes/authRoutes");
-const initAdminUser = require("./scripts/initAdminUser");
+const initInitialUsers = require("./scripts/initInitialUsers");
 
 const app = express();
 
@@ -16,7 +16,7 @@ mongoose
   )
   .then(() => {
     console.log("Connexion à MongoDB réussie - Bingo!");
-    initAdminUser(); // Appele la fonction pour initialiser l'utilisateur admin
+    initInitialUsers(); // Appele la fonction qui fait office de CommandLineRunner
   })
   .catch(() => console.log("Connexion à MongoDB échouée !"));
 
