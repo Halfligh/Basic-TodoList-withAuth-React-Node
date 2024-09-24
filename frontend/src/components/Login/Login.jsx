@@ -31,6 +31,7 @@ const Login = ({ onLogin }) => {
       <form onSubmit={handleLogin}>
         <label htmlFor="username">Identifiant:</label>
         <input
+          id="username"
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
@@ -39,6 +40,7 @@ const Login = ({ onLogin }) => {
         <div>
           <label htmlFor="password">Mot de passe:</label>
           <input
+            id="password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}

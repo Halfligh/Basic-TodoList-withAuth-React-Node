@@ -1,5 +1,5 @@
 import React from "react";
-import { render, fireEvent, screen } from "@testing-library/react";
+import { render, fireEvent, screen, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom"; // Pour les assertions comme "toBeInTheDocument"
 import Login from "./Login"; // Assurez-vous que le chemin d'import est correct
 const axios = require("axios");
@@ -38,13 +38,17 @@ describe("Login Component", () => {
     fireEvent.change(screen.getByLabelText(/mot de passe/i), { target: { value: "password" } });
     fireEvent.click(screen.getByText(/connexion/i));
 
+    // Attendre que l'appel API se termine si la fonction est asynchrone
+    await screen.findByText(/connexion/i);
+
     expect(axios.post).toHaveBeenCalledWith(
       "http://localhost:3001/api/auth/login",
       { username: "admin", password: "password" },
       { withCredentials: true }
     );
 
-    expect(mockOnLogin).toHaveBeenCalled();
+    // Utiliser waitFor pour attendre que mockOnLogin soit appelé
+    await waitFor(() => expect(mockOnLogin).toHaveBeenCalled());
   });
 
   test("displays an error in case of incorrect username or password.", async () => {
