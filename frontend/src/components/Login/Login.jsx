@@ -1,28 +1,24 @@
-// src/components/Login.js
 import React, { useState } from "react";
 import axios from "axios";
 import "./Login.css";
 
 const Login = () => {
-  // États pour stocker l'identifiant et le mot de passe
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-
   const handleLogin = async (e) => {
-    e.preventDefault(); // Empêche la soumission par défaut du formulaire
+    e.preventDefault();
     try {
-      // Requête POST vers l'API Node.js pour l'authentification
-      const response = await axios.post("http://localhost:5000/api/login", {
-        username,
-        password,
-      });
+      const response = await axios.post(
+        "http://localhost:3001/api/auth/login",
+        { username, password },
+        { withCredentials: true } // Inclure les cookies dans la requête
+      );
 
       if (response.data.success) {
-        // Gestion du succès : redirection, stockage du token, etc.
-        console.log("Connexion réussie");
+        console.log("Connexion réussie, token stocké dans le cookie");
+        // Pas besoin de manipuler le token manuellement
       } else {
-        // Affiche un message d'erreur si la connexion échoue
         setErrorMessage("Identifiant ou mot de passe incorrect");
       }
     } catch (error) {
@@ -42,7 +38,6 @@ const Login = () => {
           onChange={(e) => setUsername(e.target.value)}
           required
         />
-
         <div>
           <label htmlFor="password">Mot de passe:</label>
           <input

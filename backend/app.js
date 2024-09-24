@@ -2,9 +2,11 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const helmet = require("helmet");
+const cors = require("cors");
 // const winstonLog = require("./middlewares/winston-config");
 
-const userRoutes = require("./routes/UserRoutes");
+const userRoutes = require("./routes/userRoutes");
+const authRoutes = require("./routes/authRoutes");
 
 const initAdminUser = require("./scripts/initAdminUser");
 
@@ -29,35 +31,29 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 // Ajouter le type MIME pour les fichiers .gltf
 express.static.mime.define({ "model/gltf+json": ["gltf"] });
 
-// Autoriser les CORS -
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*"); //"*" permet d'accéder à l'api via n'importe quelle origine
-  res.setHeader(
-    //permet d'ajouter les headers mentionnés aux requêtes envoyées vers notre API
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization"
-  );
-  res.setHeader(
-    //permet d'envoyer des requêtes avec les méthodes mentionnées
-    "Access-Control-Allow-Methods",
-    "GET, POST, PUT, DELETE, PATCH, OPTIONS"
-  );
-  next();
-});
-
-//ajoute plusieurs en-têtes HTTP pour augmenter la sécurité : empêche XSS, assure que req faîtes sur https, frameguard aide à lutter contre clickjacking etc
+// Configuration du middleware CORS pour autoriser les requêtes depuis localhost:3000
 app.use(
-  helmet.contentSecurityPolicy({
-    directives: {
-      ...helmet.contentSecurityPolicy.getDefaultDirectives(),
-      "img-src": ["'self'", "data:", "blob:", "https://*.tile.openstreetmap.org/"],
-    },
+  cors({
+    origin: "http://localhost:3000", // URL du frontend d'où proviennent les requêtes
+    credentials: true,
   })
 );
 
+// Activer bodyParser pour traiter les requêtes JSON
 app.use(bodyParser.json());
 
-app.use("/api/users", userRoutes);
+//ajoute plusieurs en-têtes HTTP pour augmenter la sécurité : empêche XSS, assure que req faîtes sur https, frameguard aide à lutter contre clickjacking etc
+// app.use(
+//   helmet.contentSecurityPolicy({
+//     directives: {
+//       ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+//       "img-src": ["'self'", "data:", "blob:", "https://*.tile.openstreetmap.org/"],
+//     },
+//   })
+// );
+
+app.use("/api/auth", authRoutes); // Routes d'authentification
+app.use("/api/users", userRoutes); // Routes pour la gestion des utilisateurs
 
 app.use(express.static(path.join(__dirname, "../client/build")));
 app.get("*", (req, res) => {

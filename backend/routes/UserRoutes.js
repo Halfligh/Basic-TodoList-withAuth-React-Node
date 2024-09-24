@@ -2,9 +2,6 @@ const express = require("express");
 const router = express.Router();
 const userCtrl = require("../controllers/UserController");
 
-// Route pour la connexion des utilisateurs
-// router.post("/login", userCtrl.login);
-
 // Route pour créer un utilisateur
 router.post("/createUser", userCtrl.createUser);
 

@@ -11,8 +11,9 @@ Frontend
 
 Backend
 - Initialisation du package.json avec npm init
-- Installation des dépendances nécessaires (mongoose, express, bcrypt, helmet)
+- Installation des dépendances nécessaires (mongoose, express, bcrypt, helmet, jsonwebtoken, cors)
 - Configuration du server et de sa connexion à la base de données
+- Création de la logique back d'authentification
 
 Base de donnée
 - Création de la base de données sur mongoDB avec l'email : les54yt@gmail.com
