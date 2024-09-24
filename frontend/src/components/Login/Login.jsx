@@ -2,27 +2,26 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./Login.css";
 
-const Login = () => {
+const Login = ({ onLogin }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post(
         "http://localhost:3001/api/auth/login",
         { username, password },
-        { withCredentials: true } // Inclure les cookies dans la requête
+        { withCredentials: true } // inclure les cookies
       );
 
       if (response.data.success) {
-        console.log("Connexion réussie, token stocké dans le cookie");
-        // Pas besoin de manipuler le token manuellement
+        onLogin(); // Appelle de la fonction onLogin pour informer le parent
       } else {
         setErrorMessage("Identifiant ou mot de passe incorrect");
       }
     } catch (error) {
-      console.error("Erreur lors de la connexion", error);
       setErrorMessage("Une erreur est survenue lors de la connexion.");
     }
   };
@@ -32,7 +31,6 @@ const Login = () => {
       <form onSubmit={handleLogin}>
         <label htmlFor="username">Identifiant:</label>
         <input
-          id="username"
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
@@ -41,7 +39,6 @@ const Login = () => {
         <div>
           <label htmlFor="password">Mot de passe:</label>
           <input
-            id="password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}

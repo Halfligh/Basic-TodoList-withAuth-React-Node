@@ -11,7 +11,7 @@ Frontend
 
 Backend
 - Initialisation du package.json avec npm init
-- Installation des dépendances nécessaires (mongoose, express, bcrypt, helmet, jsonwebtoken, cors)
+- Installation des dépendances nécessaires (mongoose, express, bcrypt, helmet, jsonwebtoken, cors, cookie-parser)
 - Configuration du server et de sa connexion à la base de données
 - Création de la logique back d'authentification
 

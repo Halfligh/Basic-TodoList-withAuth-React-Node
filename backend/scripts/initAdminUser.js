@@ -9,11 +9,10 @@ async function initAdminUser() {
 
     if (!adminExists) {
       // Si l'utilisateur admin n'existe pas, le créer
-      const passwordHash = await bcrypt.hash("admin", 10); // Hacher le mot de passe
 
       const adminUser = new User({
         username: "admin",
-        password: passwordHash,
+        password: "admin",
       });
 
       await adminUser.save(); // Sauvegarder l'utilisateur admin dans la base de données
