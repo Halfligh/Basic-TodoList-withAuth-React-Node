@@ -21,3 +21,9 @@ Base de donnée
 - Création du script implémentant la fonctionnalité similaire au CLR pour créé automatiquement un utilisateur admin 
 
 
+Test frontend 
+- Installation de Jest et React Testing Library 
+- Installation de nvm en local pour gestionnaire de version Node
+- Utilisation de la version LTS 20.17.0
+
+

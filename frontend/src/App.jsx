@@ -1,10 +1,9 @@
 import logo from "./logo.svg";
 import "./App.css";
-
-import axios from "axios";
 import { useState, useEffect } from "react";
 import Login from "./components/Login/Login";
 import Logout from "./components/Logout/Logout";
+const axios = require("axios");
 
 // Fonction utilitaire pour vérifier la présence du cookie "token"
 const getCookie = (name) => {
