@@ -8,12 +8,17 @@ Application basique de todo-list avec authentification sécurisée par token et 
 Frontend
 - Initialisation du projet avec Create React App
 - Strucuration du projet en frontend/backend 
+- Création des sections de la page d'accuei
+- Création du composant Login 
+- Création du composant Logout
+- Création de l'affichage conditionnel lié à l'authentification
 
 Backend
 - Initialisation du package.json avec npm init
 - Installation des dépendances nécessaires (mongoose, express, bcrypt, helmet, jsonwebtoken, cors, cookie-parser)
 - Configuration du server et de sa connexion à la base de données
 - Création de la logique back d'authentification
+- Stockage du token dans un cookie (httpOnly: false pour l'instant)
 
 Base de donnée
 - Création de la base de données sur mongoDB avec l'email : les54yt@gmail.com

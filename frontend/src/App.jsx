@@ -1,9 +1,12 @@
 import logo from "./logo.svg";
 import "./App.css";
 import { useState, useEffect } from "react";
+
 import Login from "./components/Login/Login";
 import Logout from "./components/Logout/Logout";
 import { checkCookieStatus } from "./services/cookie/cookieService";
+
+import TodoList from "./components/TodoList/TodoList";
 
 // Fonction utilitaire pour vérifier la présence du cookie "token"
 function App() {
@@ -31,15 +34,15 @@ function App() {
     setIsAuthenticated(false);
   };
 
-  useEffect(() => {
-    checkCookieStatus();
-  }, []);
-
   return (
     <div className="App">
       <div className="App-content">
-        <div className="App-intro">
-          <img src={logo} className="App-logo" alt="logo" />
+        <div className={!isAuthenticated ? "App-intro" : "App-intro-Signed"}>
+          <img
+            src={logo}
+            className={!isAuthenticated ? "App-logo" : "App-logo-signed"}
+            alt="logo"
+          />
           <p>
             {isAuthenticated
               ? "Bienvenue, vous êtes connecté. Voici votre Todo-list."
@@ -57,7 +60,10 @@ function App() {
         <div className="App-components">
           <section className="login-section">
             {isAuthenticated ? (
-              <Logout onLogout={handleLogout} /> // Passe handleLogout en prop
+              <>
+                <Logout onLogout={handleLogout} />
+                <TodoList />
+              </>
             ) : (
               <Login onLogin={handleLogin} /> // Passe handleLogin en prop
             )}

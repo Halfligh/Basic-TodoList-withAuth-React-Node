@@ -2,21 +2,12 @@
     display: flex;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .App-content{
   width: 100vw;
   display: flex;
 }
+
+/*/When unauthenticated/*/
 
 .App-intro {
   min-width: 50vh;
@@ -31,6 +22,41 @@
 
 .App-link {
   color: #61dafb;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+
+/*/When authenticated/*/
+
+.App-intro-signed {
+  min-width: 100vw;
+  height: 100px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(8px + 1vmin);
+  color: grey;
+  position: absolute;
+  top: 0;
+}
+
+.App-logo-signed {
+  height: 50px;
+  pointer-events: none;
+}
+
+
+/*/Other/*/
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
 }
 
 .App-components {

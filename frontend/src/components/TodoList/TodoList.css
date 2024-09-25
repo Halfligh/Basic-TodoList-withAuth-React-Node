@@ -1,0 +1,81 @@
+.todo-container {
+    max-width: 280px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+  }
+  
+  .todo-input {
+    width: calc(100% - 100px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    margin-right: 10px;
+  }
+  
+  .add-button {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .add-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .todo-list {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 20px;
+  }
+  .todo-list li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 8px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden; /* Cache le texte qui dépasse */
+  }
+  
+  .todo-list li .task-text {
+    flex: 1; /* Permet au texte de prendre l'espace disponible */
+    overflow: hidden; /* Cache le texte qui dépasse */
+    white-space: nowrap; /* Empêche le texte de passer à la ligne */
+    text-overflow: ellipsis; /* Ajoute les points de suspension (...) */
+  }
+  
+  .todo-list li.completed span {
+    text-decoration: line-through;
+    color: #999;
+  }
+  
+  .delete-button {
+    margin-left: auto;
+    padding: 5px 10px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .delete-button:hover {
+    background-color: #c82333;
+  }
+  
+  .admin-icon {
+    width: 18px; 
+    height: 18px;
+    vertical-align: middle; 
+  }

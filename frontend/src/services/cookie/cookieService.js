@@ -4,6 +4,7 @@ import { getCookie } from "../../utils/cookie"; // Import de la fonction utilita
 
 export const checkCookieStatus = async () => {
   const token = getCookie("token");
+  console.log("Token récupéré :", token);
   if (!token) {
     console.log("Aucun cookie présent, utilisateur non authentifié");
     return { isAuthenticated: false };

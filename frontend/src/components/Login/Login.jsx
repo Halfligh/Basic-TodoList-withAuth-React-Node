@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./Login.css";
-const axios = require("axios");
+import axios from "axios";
+// const axios = require("axios"); cette import marche pour les tests mais fait bugger connexion
 
 const Login = ({ onLogin }) => {
   const [username, setUsername] = useState("");
