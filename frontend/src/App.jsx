@@ -54,7 +54,7 @@ function App() {
       </div>
 
       <div className={isAuthenticated ? "App-content-expanded" : "App-content"}>
-        <section className="login-section">
+        <section className={!isAuthenticated ? "login-section" : "logout-section"}>
           {isAuthenticated ? (
             <div className="profile-logout">
               <p>Voici votre Todo-list.</p>

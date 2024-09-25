@@ -88,14 +88,25 @@
 }
 
 .login-section, .todo-list-section {
-  width: 50%; /* Occupe 50% une fois connecté */
+  width: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
+.logout-section {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translateX(50%);
+  animation: FromRight 1s forwards;
+}
+
 .todo-list-section {
-  background-color: #f0f0f0; /* Exemple de style */
+  background-color: #f0f0f0;
+  opacity: 0;
+  animation: FadeIn 1s 1s forwards;
 }
 
 .admin-view-section {

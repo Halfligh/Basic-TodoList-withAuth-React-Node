@@ -15,7 +15,7 @@ export const getTaskById = (taskId) => {
 
 // Fonction pour créer une nouvelle tâche
 export const createTask = (taskData) => {
-  return axios.post(`${API_BASE_URL}/api/tasks`, taskData);
+  return axios.post(`${API_BASE_URL}/api/tasks`, taskData, { withCredentials: true });
 };
 
 // Fonction pour mettre à jour une tâche existante
