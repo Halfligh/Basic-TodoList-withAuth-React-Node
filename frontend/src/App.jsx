@@ -3,7 +3,7 @@ import "./App.css";
 import { useState, useEffect } from "react";
 import Login from "./components/Login/Login";
 import Logout from "./components/Logout/Logout";
-import { checkAuthStatus } from "./services/authService";
+import { checkCookieStatus } from "./services/cookie/cookie";
 
 // Fonction utilitaire pour vérifier la présence du cookie "token"
 function App() {
@@ -13,7 +13,7 @@ function App() {
   // Surveillance de l'authentification
   useEffect(() => {
     const fetchAuthStatus = async () => {
-      const { isAuthenticated } = await checkAuthStatus();
+      const { isAuthenticated } = await checkCookieStatus();
       setIsAuthenticated(isAuthenticated);
       setAuthChecked(true);
     };
@@ -32,7 +32,7 @@ function App() {
   };
 
   useEffect(() => {
-    checkAuthStatus();
+    checkCookieStatus();
   }, []);
 
   return (

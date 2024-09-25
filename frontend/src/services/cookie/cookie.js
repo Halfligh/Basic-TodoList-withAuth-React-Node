@@ -1,8 +1,8 @@
 // services/authService.js
 import axios from "axios";
-import { getCookie } from "../utils/cookie"; // Import de la fonction utilitaire pour les cookies
+import { getCookie } from "../../utils/cookie"; // Import de la fonction utilitaire pour les cookies
 
-export const checkAuthStatus = async () => {
+export const checkCookieStatus = async () => {
   const token = getCookie("token");
   if (!token) {
     console.log("Aucun cookie présent, utilisateur non authentifié");
