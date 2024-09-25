@@ -1,14 +1,14 @@
 const express = require("express");
 const router = express.Router();
-const userCtrl = require("../controllers/UserController");
+const usersCtrl = require("../controllers/UsersController");
 
 // Route pour créer un utilisateur
-router.post("/createUser", userCtrl.createUser);
+router.post("/createUser", usersCtrl.createUser);
 
 // Route pour obtenir tous les utilisateurs
-router.get("/getAllUsers", userCtrl.getAllUsers);
+router.get("/getAllUsers", usersCtrl.getAllUsers);
 
 // Route pour obtenir un utilisateur spécifique
-router.get("/getOneUser/:id", userCtrl.getOneUser);
+router.get("/getOneUser/:id", usersCtrl.getOneUser);
 
 module.exports = router;

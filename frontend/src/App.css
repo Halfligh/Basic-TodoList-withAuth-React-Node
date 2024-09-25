@@ -37,7 +37,7 @@
 
 .App-intro-signed p{
   opacity: 0;
-  animation: FadeIn 1.5s 1.5s forwards;
+  animation: FadeIn 1.5s 1.2s forwards;
   color: rgb(48, 47, 47);
 }
 
@@ -57,7 +57,7 @@
   color: #61dafb;
   opacity: 0;
   transform: translateY(-250px);
-  animation: FadeIn 1s 1s forwards, FromTop 0.5s 1.5s forwards;
+  animation: FadeIn 1s 1s forwards, FromTop 0.5s 1s forwards;
 }
 
 /* App-content non-authenticated */

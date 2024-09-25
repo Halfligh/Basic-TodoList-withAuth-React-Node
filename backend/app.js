@@ -2,8 +2,9 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
-const userRoutes = require("./routes/userRoutes");
 const authRoutes = require("./routes/authRoutes");
+const usersRoutes = require("./routes/usersRoutes");
+const tasksRoutes = require("./routes/tasksRoutes");
 const initInitialUsers = require("./scripts/initInitialUsers");
 
 const app = express();
@@ -32,8 +33,9 @@ app.use(cookieParser());
 
 //Routes
 
-app.use("/api/auth", authRoutes); // Routes d'authentification
-app.use("/api/users", userRoutes); // Routes pour la gestion des utilisateurs
+app.use("/api/auth", authRoutes); // Utilisation des routes d'authentification
+app.use("/api/users", usersRoutes); // Utilisation des routes pour la gestion des utilisateurs
+app.use("/api/tasks", tasksRoutes); // Utilisation des routes pour la gestion des utilisateurs
 
 // Affichage des erreurs à la console
 app.use((err, req, res, next) => {
