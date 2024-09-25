@@ -1,27 +1,44 @@
+/* App */
 .App {
-    display: flex;
-}
-
-.App-content{
-  width: 100vw;
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
   display: flex;
 }
 
-/*/When unauthenticated/*/
-
+/* App-intro non-authenticated */
 .App-intro {
-  min-width: 50vh;
-  min-height: 100vh;
+  width: 50vw;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(8px + 1vmin);
   color: grey;
+  transition: all 0.5s ease;
+  position: relative;
 }
 
-.App-link {
-  color: #61dafb;
+/* App-intro authenticated */
+.App-intro-signed {
+  width: 100%; 
+  height: 100px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1;
+  transition: all 1.5s ease;
+  color: grey;
+}
+
+.App-intro-signed p{
+  opacity: 0;
+  animation: FadeIn 1.5s 1.5s forwards;
+  color: rgb(48, 47, 47);
 }
 
 .App-logo {
@@ -29,46 +46,59 @@
   pointer-events: none;
 }
 
-
-/*/When authenticated/*/
-
-.App-intro-signed {
-  min-width: 100vw;
-  height: 100px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(8px + 1vmin);
-  color: grey;
-  position: absolute;
-  top: 0;
-}
-
 .App-logo-signed {
   height: 50px;
   pointer-events: none;
 }
 
-
-/*/Other/*/
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-components {
-  width: 100%;
-}
-
-.login-section {
-  width: 100%;
-  height: 100%;
+/* App-content non-authenticated */
+.App-content {
+  width: 50vw;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: width 0.5s ease;
+}
+
+/* App-content authenticated */
+.App-content-expanded {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  transition: width 0.5s ease;
+}
+
+.login-section, .todo-list-section {
+  width: 50%; /* Occupe 50% une fois connecté */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.todo-list-section {
+  background-color: #f0f0f0; /* Exemple de style */
+}
+
+.admin-view-section {
+  /* Autres sections si nécessaire */
+}
+
+/* Autres styles */
+.App-link {
+  color: #61dafb;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo{
+    animation: App-logo-spin infinite 20s linear;
+  }
+
+  .App-logo-signed{
+    animation: App-logo-spin infinite 10s linear;
+  }
 }
 
 @keyframes App-logo-spin {
@@ -78,4 +108,14 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+@keyframes FadeIn {
+ from {
+  opacity: 0;
+ }
+
+ to {
+  opacity: 1;
+ }
 }
