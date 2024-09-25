@@ -1,6 +1,6 @@
 import axios from "axios";
 import { getCookie } from "../../utils/cookie"; // Simuler cette fonction
-import { checkCookieStatus } from "./cookie"; // La fonction que vous testez
+import { checkCookieStatus } from "./cookieService"; // La fonction que vous testez
 
 // Simuler axios et getCookie
 jest.mock("axios");

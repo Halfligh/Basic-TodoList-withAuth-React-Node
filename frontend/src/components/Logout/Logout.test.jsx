@@ -7,12 +7,12 @@ const axios = require("axios");
 jest.mock("axios");
 
 describe("Login Component", () => {
-  test("renders logout button correctly", () => {
+  test("should render correctly", () => {
     render(<Logout onLogout={() => {}} />);
     expect(screen.getByText(/Déconnexion/i)).toBeInTheDocument();
   });
 
-  test("calls onLogout after successful API call", async () => {
+  test("should calls onLogout after successful API call", async () => {
     const mockOnLogout = jest.fn();
     axios.post = jest.fn().mockResolvedValueOnce({}); // Simuler la réussite de l'appel API
 
@@ -23,7 +23,7 @@ describe("Login Component", () => {
     await waitFor(() => expect(mockOnLogout).toHaveBeenCalled());
   });
 
-  test("logs an error when the logout API call fails", async () => {
+  test("should logs an error when the logout API call fails", async () => {
     console.error = jest.fn(); // Mock de la console pour capturer les erreurs
     axios.post = jest.fn().mockRejectedValueOnce(new Error("Erreur de déconnexion")); // Simuler une erreur API
 

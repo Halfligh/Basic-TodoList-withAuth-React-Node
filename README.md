@@ -25,5 +25,8 @@ Test frontend
 - Installation de Jest et React Testing Library 
 - Installation de nvm en local pour gestionnaire de version Node
 - Utilisation de la version LTS 20.17.0
+- Création des tests pour les composants Login-Logout 
+- Création des tests pour les services AuthService et CookieService
+- Création du plan de test frontend sur figma
 
 

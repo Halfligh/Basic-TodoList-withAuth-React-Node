@@ -3,7 +3,7 @@ import "./App.css";
 import { useState, useEffect } from "react";
 import Login from "./components/Login/Login";
 import Logout from "./components/Logout/Logout";
-import { checkCookieStatus } from "./services/cookie/cookie";
+import { checkCookieStatus } from "./services/cookie/cookieService";
 
 // Fonction utilitaire pour vérifier la présence du cookie "token"
 function App() {

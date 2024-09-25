@@ -7,7 +7,7 @@ const axios = require("axios");
 jest.mock("axios");
 
 describe("Login Component", () => {
-  test("renders correctly with initial elements", () => {
+  test("should render correctly", () => {
     render(<Login onLogin={() => {}} />);
 
     // Vérifie que le champ de texte et le bouton de connexion sont présents
@@ -16,7 +16,7 @@ describe("Login Component", () => {
     expect(screen.getByText(/Connexion/i)).toBeInTheDocument();
   });
 
-  test("the 'username' and 'password' fields update with input.", () => {
+  test("should update the 'username' and 'password' fields with input.", () => {
     render(<Login />);
 
     fireEvent.change(screen.getByLabelText(/identifiant/i), { target: { value: "JohnDoe" } });
@@ -28,7 +28,7 @@ describe("Login Component", () => {
     expect(screen.getByLabelText(/mot de passe/i)).toHaveValue("secretPassword");
   });
 
-  test("submits correct data and calls onLogin", async () => {
+  test("should submits correct data and calls onLogin", async () => {
     const mockOnLogin = jest.fn();
     axios.post.mockResolvedValue({ data: { success: true } }); // Simuler une réponse réussie de l'API
 
@@ -51,7 +51,7 @@ describe("Login Component", () => {
     await waitFor(() => expect(mockOnLogin).toHaveBeenCalled());
   });
 
-  test("displays an error in case of incorrect username or password.", async () => {
+  test("should displays an error in case of incorrect username or password.", async () => {
     // Simuler une réponse de l'API avec une erreur d'authentification
     axios.post.mockResolvedValue({ data: { success: false } });
 
@@ -67,7 +67,7 @@ describe("Login Component", () => {
     expect(await screen.findByText(/identifiant ou mot de passe incorrect/i)).toBeInTheDocument();
   });
 
-  test("displays an error message if the server is unreachable.", async () => {
+  test("should displays an error message if the server is unreachable.", async () => {
     // Simuler une erreur réseau avec une promesse rejetée
     axios.post.mockRejectedValue(new Error("Erreur réseau"));
 
