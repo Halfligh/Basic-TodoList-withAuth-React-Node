@@ -44,7 +44,7 @@ function App() {
             : "Veuillez vous connecter pour accéder à votre Todo-list."}
         </p>
         <a
-          className="App-link"
+          className={!isAuthenticated ? "App-link" : "App-link-signed"}
           href="https://reactjs.org"
           target="_blank"
           rel="noopener noreferrer"

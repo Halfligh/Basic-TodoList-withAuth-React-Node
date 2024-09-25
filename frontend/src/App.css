@@ -44,11 +44,20 @@
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+  transition: height 1s ease;
 }
 
 .App-logo-signed {
   height: 50px;
   pointer-events: none;
+  transition: height 1s ease;
+}
+
+.App-link-signed{
+  color: #61dafb;
+  opacity: 0;
+  transform: translateY(-250px);
+  animation: FadeIn 1s 1s forwards, FromTop 0.5s 1.5s forwards;
 }
 
 /* App-content non-authenticated */
@@ -60,6 +69,13 @@
   align-items: center;
   transition: width 0.5s ease;
 }
+
+.App-link{
+  color: #61dafb;
+  transform: translateX(150%);
+  animation: FromRight 0.5s forwards;
+}
+
 
 /* App-content authenticated */
 .App-content-expanded {
@@ -84,11 +100,6 @@
 
 .admin-view-section {
   /* Autres sections si nécessaire */
-}
-
-/* Autres styles */
-.App-link {
-  color: #61dafb;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -119,3 +130,24 @@
   opacity: 1;
  }
 }
+
+@keyframes FromRight {
+  from {
+    transform: translateX(150%);
+   }
+  
+   to {
+    transform: translateX(0);
+   }
+}
+
+@keyframes FromTop {
+  from {
+    transform: translateY(-250px);
+   }
+  
+   to {
+    transform: translateY(0);
+   }
+}
+
