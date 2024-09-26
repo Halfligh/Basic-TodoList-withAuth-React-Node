@@ -21,9 +21,13 @@ exports.login = async (req, res) => {
     }
 
     // Créer un token JWT
-    const token = jwt.sign({ userId: user._id, username: user.username }, "votre_secret_jwt", {
-      expiresIn: "1h",
-    });
+    const token = jwt.sign(
+      { userId: user._id, username: user.username, roles: user.roles },
+      "votre_secret_jwt",
+      {
+        expiresIn: "1h",
+      }
+    );
 
     // Stocker le token dans un cookie
     res.cookie("token", token, {

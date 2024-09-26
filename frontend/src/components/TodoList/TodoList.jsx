@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getAllTasks, createTask, updateTask, deleteTask } from "../../services/task/taskService";
+import { getUserTasks, createTask, updateTask, deleteTask } from "../../services/task/taskService";
 import { getCookie } from "../../utils/cookie.js";
 import { decodeToken } from "../../utils/decodeToken.js";
 import "../TodoList/TodoList.css";
@@ -18,16 +18,18 @@ const TodoList = ({ title = "ToDoList" }) => {
     }
   }, []);
 
-  // Charger les tâches au montage du composant
+  // Charger les tâches au montage du composant une fois que currentUser est défini
   useEffect(() => {
-    loadTasks();
-  }, []);
+    if (currentUser) {
+      loadTasks(currentUser);
+    }
+  }, [currentUser]);
 
   // Fonction pour charger les tâches depuis l'API
-  const loadTasks = async () => {
+  const loadTasks = async (userId) => {
     try {
-      const response = await getAllTasks(); // Utilisation du service pour récupérer les tâches
-      setTasks(response.data);
+      const response = await getUserTasks(userId); // Passer l'ID utilisateur
+      setTasks(response.data); // Stocker les tâches dans le state
     } catch (error) {
       console.error("Erreur lors du chargement des tâches", error);
     }

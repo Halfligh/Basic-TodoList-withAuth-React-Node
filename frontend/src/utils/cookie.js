@@ -1,6 +1,3 @@
-// utils/cookie.js
-
-// Fonction utilitaire pour récupérer la valeur d'un cookie par son nom
 export const getCookie = (name) => {
   return (
     document.cookie

@@ -29,6 +29,17 @@ exports.createTask = async (req, res) => {
   }
 };
 
+// Récupérer toutes les tâches d'un utilisateur
+exports.getUserTasks = async (req, res) => {
+  try {
+    const userId = req.params.id; // Récupérer l'ID utilisateur depuis les paramètres de l'URL
+    const tasks = await Task.find({ owner: userId }); // Récupérer les tâches de l'utilisateur
+    res.status(200).json(tasks);
+  } catch (error) {
+    console.error("Erreur lors de la récupération des tâches", error);
+    res.status(500).json({ message: "Erreur lors de la récupération des tâches", error });
+  }
+};
 // Récupérer toutes les tâches
 exports.getAllTasks = async (req, res) => {
   try {
@@ -89,5 +100,33 @@ exports.deleteTask = async (req, res) => {
     res.status(200).json({ message: "Tâche supprimée avec succès" });
   } catch (error) {
     res.status(500).json({ message: "Erreur lors de la suppression de la tâche", error });
+  }
+};
+
+// Récupérer tous les utilisateurs avec leurs tâches respectives (réservé aux administrateurs)
+exports.getAllUsersWithTasks = async (req, res) => {
+  try {
+    // Vérifie que l'utilisateur est administrateur
+    if (!req.user.roles.includes("admin")) {
+      return res.status(403).json({ message: "Accès refusé" });
+    }
+
+    // Récupérer tous les utilisateurs
+    const users = await User.find({});
+
+    // Récupérer les tâches pour chaque utilisateur
+    const usersWithTasks = await Promise.all(
+      users.map(async (user) => {
+        const tasks = await Task.find({ owner: user._id }); // Récupère les tâches par utilisateur
+        return {
+          username: user.username,
+          tasks,
+        };
+      })
+    );
+
+    res.status(200).json(usersWithTasks);
+  } catch (error) {
+    res.status(500).json({ message: "Erreur lors de la récupération des utilisateurs", error });
   }
 };

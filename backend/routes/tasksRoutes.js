@@ -8,6 +8,9 @@ router.post("/create", tasksController.createTask);
 // Récupérer toutes les tâches
 router.get("/", tasksController.getAllTasks);
 
+// Récupérer toutes les tâches d'un utilisateur
+router.get("/user/:id", tasksController.getUserTasks);
+
 // Récupérer une tâche par ID
 router.get("/:id", tasksController.getTaskById);
 
