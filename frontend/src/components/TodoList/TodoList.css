@@ -1,5 +1,6 @@
 .todo-container {
-    max-width: 280px;
+    max-width: 300px;
+    width: 100%;
     margin: 20px auto;
     padding: 20px;
     border: 1px solid #ddd;
@@ -45,6 +46,11 @@
     border: 1px solid #ddd;
     border-radius: 4px;
     overflow: hidden; /* Cache le texte qui dépasse */
+  }
+
+  .todo-list input {
+    width: 10%;
+    margin-right: 5px;
   }
   
   .todo-list li .task-text {

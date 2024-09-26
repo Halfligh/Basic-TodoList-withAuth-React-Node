@@ -5,13 +5,15 @@ import { useState, useEffect } from "react";
 import Login from "./components/Login/Login";
 import Logout from "./components/Logout/Logout";
 import { checkCookieStatus } from "./services/cookie/cookieService";
-
+import { getCookie } from "./utils/cookie";
+import { decodeToken } from "./utils/decodeToken";
 import TodoList from "./components/TodoList/TodoList";
 
 // Fonction utilitaire pour vérifier la présence du cookie "token"
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [authChecked, setAuthChecked] = useState(false); // État pour savoir si l'authentification a été vérifiée
+  const [authChecked, setAuthChecked] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
 
   // Surveillance de l'authentification
   useEffect(() => {
@@ -29,6 +31,18 @@ function App() {
     setIsAuthenticated(true);
   };
 
+  // Récupérer l'id de l'utilisateur actuel via le token stocké dans le cookie
+  useEffect(() => {
+    const token = getCookie("token"); // Récupère le token dans le cookie
+    if (token) {
+      const decodedToken = decodeToken(token); // Décoder le token pour obtenir le userId
+      console.log(decodedToken);
+      console.log(decodedToken.username);
+      console.log(decodedToken.id);
+      setCurrentUser(decodedToken.username); // Stocke le userId dans l'état
+    }
+  }, []);
+
   // Appelée lorsque l'utilisateur se déconnecte
   const handleLogout = () => {
     setIsAuthenticated(false);
@@ -40,7 +54,7 @@ function App() {
         <img src={logo} className={!isAuthenticated ? "App-logo" : "App-logo-signed"} alt="logo" />
         <p>
           {isAuthenticated
-            ? "Bienvenue, vous êtes connecté."
+            ? `Bienvenue, ${currentUser} vous êtes connecté(e).`
             : "Veuillez vous connecter pour accéder à votre Todo-list."}
         </p>
         <a
@@ -58,6 +72,7 @@ function App() {
           {isAuthenticated ? (
             <div className="profile-logout">
               <p>Voici votre Todo-list.</p>
+              <p>Rôle : </p>
               <Logout onLogout={handleLogout} />
             </div>
           ) : (

@@ -4,7 +4,6 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 // Connexion d'un utilisateur
-// backend/controllers/authController.js
 exports.login = async (req, res) => {
   const { username, password } = req.body;
 
@@ -22,7 +21,9 @@ exports.login = async (req, res) => {
     }
 
     // Créer un token JWT
-    const token = jwt.sign({ userId: user._id }, "votre_secret_jwt", { expiresIn: "1h" });
+    const token = jwt.sign({ userId: user._id, username: user.username }, "votre_secret_jwt", {
+      expiresIn: "1h",
+    });
 
     // Stocker le token dans un cookie
     res.cookie("token", token, {

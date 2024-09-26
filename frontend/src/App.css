@@ -104,7 +104,6 @@
 }
 
 .todo-list-section {
-  background-color: #f0f0f0;
   opacity: 0;
   animation: FadeIn 1s 1s forwards;
 }

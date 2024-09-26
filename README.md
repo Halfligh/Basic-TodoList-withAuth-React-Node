@@ -9,9 +9,13 @@ Frontend
 - Initialisation du projet avec Create React App
 - Strucuration du projet en frontend/backend 
 - Création des sections de la page d'accuei
-- Création du composant Login 
+- Création du composant Login
 - Création du composant Logout
+- Création du authService
 - Création de l'affichage conditionnel lié à l'authentification
+- Création des animations à la connexion
+- Création du composant Todo-list
+- Création du taskService
 
 Backend
 - Initialisation du package.json avec npm init
@@ -19,6 +23,7 @@ Backend
 - Configuration du server et de sa connexion à la base de données
 - Création de la logique back d'authentification
 - Stockage du token dans un cookie (httpOnly: false pour l'instant)
+- Création de la logique backend pour les tâches (model, controller, routes)
 
 Base de donnée
 - Création de la base de données sur mongoDB avec l'email : les54yt@gmail.com

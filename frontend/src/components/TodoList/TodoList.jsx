@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { getAllTasks, createTask, updateTask, deleteTask } from "../../services/task/taskService"; // Importer le service API
+import { getAllTasks, createTask, updateTask, deleteTask } from "../../services/task/taskService";
 import { getCookie } from "../../utils/cookie.js";
 import { decodeToken } from "../../utils/decodeToken.js";
+import "../TodoList/TodoList.css";
 
 const TodoList = ({ title = "ToDoList" }) => {
   const [currentUser, setCurrentUser] = useState(null);
