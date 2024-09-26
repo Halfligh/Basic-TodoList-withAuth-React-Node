@@ -9,6 +9,12 @@ const initInitialUsers = require("./scripts/initInitialUsers");
 
 const app = express();
 
+// Capture des logs des appels réalisés à l'api
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.url}`);
+  next();
+});
+
 // Connexion à MongoDB
 mongoose
   .connect(
@@ -24,10 +30,13 @@ mongoose
 // Middlewares
 app.use(
   cors({
-    origin: "http://localhost:3000", // URL du frontend d'où proviennent les requêtes
-    credentials: true,
+    origin: "http://localhost:3000", // Remplace par l'origine de ton frontend (par exemple, localhost:3000)
+    methods: ["GET", "POST", "PUT", "DELETE"], // Autoriser les méthodes HTTP que tu utilises
+    allowedHeaders: ["Content-Type", "Authorization"], // Autoriser les en-têtes spécifiques
+    credentials: true, // Si tu veux autoriser l'envoi de cookies ou d'identifiants
   })
 );
+
 app.use(express.json());
 app.use(cookieParser());
 

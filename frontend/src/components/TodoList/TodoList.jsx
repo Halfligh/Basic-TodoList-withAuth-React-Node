@@ -1,14 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { getAllTasks, createTask, updateTask, deleteTask } from "../../services/task/taskService"; // Importer le service API
+import { getCookie } from "../../utils/cookie.js";
+import { decodeToken } from "../../utils/decodeToken.js";
 
 const TodoList = ({ title = "ToDoList" }) => {
+  const [currentUser, setCurrentUser] = useState(null);
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState("");
+
+  // Récupérer l'id de l'utilisateur actuel via le token stocké dans le cookie
+  useEffect(() => {
+    const token = getCookie("token"); // Récupère le token dans le cookie
+    if (token) {
+      const decodedToken = decodeToken(token); // Décoder le token pour obtenir le userId
+      setCurrentUser(decodedToken.userId); // Stocke le userId dans l'état
+    }
+  }, []);
 
   // Charger les tâches au montage du composant
   useEffect(() => {
     loadTasks();
-  }, []); // L'effet ne dépend plus de la liste des tâches
+  }, []);
 
   // Fonction pour charger les tâches depuis l'API
   const loadTasks = async () => {
@@ -23,12 +35,16 @@ const TodoList = ({ title = "ToDoList" }) => {
   // Fonction pour ajouter une nouvelle tâche
   const addTask = async () => {
     if (newTask.trim()) {
-      const taskPayload = { text: newTask, completed: false, addByAdmin: false };
-
+      const taskData = {
+        text: newTask,
+        completed: false,
+        addByAdmin: false,
+        ownerId: currentUser,
+      };
+      console.log(taskData);
       try {
-        const response = await createTask(taskPayload); // Utilisation du service pour créer une tâche
+        const response = await createTask(taskData); // Utilisation du service pour créer une tâche
         if (response.data && response.data._id) {
-          // Remplacer 'id' par '_id' car Mongoose génère '_id'
           setTasks([...tasks, response.data]); // Mise à jour de la liste des tâches
           setNewTask(""); // Réinitialiser le champ
         } else {

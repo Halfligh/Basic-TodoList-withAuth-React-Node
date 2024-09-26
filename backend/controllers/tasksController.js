@@ -9,6 +9,7 @@ exports.createTask = async (req, res) => {
     // Rechercher l'utilisateur propriétaire de la tâche
     const owner = await User.findById(ownerId);
     if (!owner) {
+      console.log("Utilisateur non trouvé :", ownerId);
       return res.status(404).json({ message: "Utilisateur non trouvé" });
     }
 

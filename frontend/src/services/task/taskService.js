@@ -1,6 +1,6 @@
 import axios from "axios";
 
-// URL de base de l'API (à ajuster en fonction de votre environnement)
+// URL de base de l'API
 export const API_BASE_URL = "http://localhost:3001";
 
 // Fonction pour récupérer toutes les tâches
@@ -15,7 +15,7 @@ export const getTaskById = (taskId) => {
 
 // Fonction pour créer une nouvelle tâche
 export const createTask = (taskData) => {
-  return axios.post(`${API_BASE_URL}/api/tasks`, taskData, { withCredentials: true });
+  return axios.post(`${API_BASE_URL}/api/tasks/create`, taskData);
 };
 
 // Fonction pour mettre à jour une tâche existante
