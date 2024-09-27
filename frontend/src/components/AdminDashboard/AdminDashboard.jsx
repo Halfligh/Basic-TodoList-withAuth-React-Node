@@ -19,6 +19,8 @@ const AdminDashboard = ({ userRoles }) => {
     }
   }, [userRoles]);
 
+  console.log(usersWithTasks);
+
   return (
     <section className="admin-dashboard">
       {usersWithTasks.map((user) => (

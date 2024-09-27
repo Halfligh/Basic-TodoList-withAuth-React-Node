@@ -4,9 +4,9 @@ import { getCookie } from "../../utils/cookie.js";
 import { decodeToken } from "../../utils/decodeToken.js";
 import "../TodoList/TodoList.css";
 
-const TodoList = ({ title = "ToDoList" }) => {
+const TodoList = ({ title = "ToDoList", tasks: initialTasks = [] }) => {
   const [currentUser, setCurrentUser] = useState(null);
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState(initialTasks);
   const [newTask, setNewTask] = useState("");
 
   // Récupérer l'id de l'utilisateur actuel via le token stocké dans le cookie
@@ -18,12 +18,23 @@ const TodoList = ({ title = "ToDoList" }) => {
     }
   }, []);
 
-  // Charger les tâches au montage du composant une fois que currentUser est défini
+  // Si aucune tâche n'est passée en props, alors récupérer les tâches via l'API
   useEffect(() => {
-    if (currentUser) {
+    if (!initialTasks.length) {
+      const token = getCookie("token");
+      if (token) {
+        const decodedToken = decodeToken(token);
+        setCurrentUser(decodedToken.userId);
+      }
+    }
+  }, [initialTasks]);
+
+  // Charger les tâches depuis l'API uniquement si elles ne sont pas passées en props
+  useEffect(() => {
+    if (currentUser && !initialTasks.length) {
       loadTasks(currentUser);
     }
-  }, [currentUser]);
+  }, [currentUser, initialTasks.length]);
 
   // Fonction pour charger les tâches depuis l'API
   const loadTasks = async (userId) => {
@@ -76,7 +87,7 @@ const TodoList = ({ title = "ToDoList" }) => {
   const removeTask = async (taskId, index) => {
     try {
       await deleteTask(taskId); // Utilisation du service pour supprimer la tâche
-      setTasks(tasks.filter((_, i) => i !== index)); // Supprimer la tâche de l'état local
+      setTasks(tasks.filter((task) => task._id !== taskId));
     } catch (error) {
       console.error("Erreur lors de la suppression de la tâche", error);
     }
