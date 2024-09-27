@@ -106,17 +106,15 @@ exports.deleteTask = async (req, res) => {
 // Récupérer tous les utilisateurs avec leurs tâches respectives (réservé aux administrateurs)
 exports.getAllUsersWithTasks = async (req, res) => {
   try {
-    // Vérifie que l'utilisateur est administrateur
-    if (!req.user.roles.includes("admin")) {
-      return res.status(403).json({ message: "Accès refusé" });
-    }
-
     // Récupérer tous les utilisateurs
     const users = await User.find({});
 
-    // Récupérer les tâches pour chaque utilisateur
+    // Filtrer les utilisateurs pour exclure les admins
+    const nonAdminUsers = users.filter((user) => !user.roles.includes("admin"));
+
+    // Récupérer les tâches pour chaque utilisateur non-admin
     const usersWithTasks = await Promise.all(
-      users.map(async (user) => {
+      nonAdminUsers.map(async (user) => {
         const tasks = await Task.find({ owner: user._id }); // Récupère les tâches par utilisateur
         return {
           username: user.username,
@@ -127,6 +125,8 @@ exports.getAllUsersWithTasks = async (req, res) => {
 
     res.status(200).json(usersWithTasks);
   } catch (error) {
-    res.status(500).json({ message: "Erreur lors de la récupération des utilisateurs", error });
+    res
+      .status(500)
+      .json({ message: "Erreur lors de la récupération des utilisateurs et des tâches", error });
   }
 };

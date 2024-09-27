@@ -1,0 +1,9 @@
+.admin-dashboard {
+    display: flex;
+    width: 100%;
+}
+
+.user-todo {
+    width : 300px;
+    padding-right: 80px;
+}

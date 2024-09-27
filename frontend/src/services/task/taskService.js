@@ -33,7 +33,7 @@ export const deleteTask = (taskId) => {
   return axios.delete(`${API_BASE_URL}/api/tasks/${taskId}`);
 };
 
-// Fonction pour récupérer toutes les tâches liées à chaque utilisateur (réservé aux admins)
-export const getAllUsersWithTasks = (id) => {
-  return axios.get(`${API_BASE_URL}/api/tasks/usersWithTasks/${id}`);
+// Fonction pour récupérer tous les utilisateurs avec leurs tâches
+export const getAllUsersWithTasks = () => {
+  return axios.get(`${API_BASE_URL}/api/tasks/allUsersWithTasks`);
 };

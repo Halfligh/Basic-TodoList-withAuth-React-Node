@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { getAllUsersWithTasks } from "../../services/task/taskService";
+import { getAllUsersWithTasks } from "../../services/task/taskService.js";
 import TodoList from "../TodoList/TodoList";
+import "../AdminDashboard/AdminDashboard.css";
 
 const AdminDashboard = ({ userRoles }) => {
   const [usersWithTasks, setUsersWithTasks] = useState([]);
@@ -19,15 +20,13 @@ const AdminDashboard = ({ userRoles }) => {
   }, [userRoles]);
 
   return (
-    <section className="admin-todo-lists">
-      <div className="users-todo-lists">
-        {usersWithTasks.map((user) => (
-          <div key={user.username} className="user-todo">
-            <h3>{user.username}'s Todo-list</h3>
-            <TodoList tasks={user.tasks} />
-          </div>
-        ))}
-      </div>
+    <section className="admin-dashboard">
+      {usersWithTasks.map((user) => (
+        <div key={user.username} className="user-todo">
+          <h3>Todo-list de {user.username}</h3>
+          <TodoList tasks={user.tasks} />
+        </div>
+      ))}
     </section>
   );
 };

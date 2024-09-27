@@ -50,7 +50,7 @@ function App() {
 
   return (
     <div className="App">
-      <div className="General-Section">
+      <div className="General-section">
         <div className={!isAuthenticated ? "App-intro" : "App-intro-signed"}>
           <img
             src={logo}
@@ -73,7 +73,6 @@ function App() {
             Learn React
           </a>
         </div>
-
         <div className={isAuthenticated ? "App-content-expanded" : "App-content"}>
           <div className={"General-content"}>
             <section className={!isAuthenticated ? "login-section" : "logout-section"}>
@@ -98,9 +97,7 @@ function App() {
 
       {isAuthenticated && userRoles.includes("admin") ? (
         <div className="Admin-content">
-          <section className="admin-dashboard">
-            <AdminDashboard userRoles={userRoles} />
-          </section>
+          <AdminDashboard userRoles={userRoles} />
         </div>
       ) : null}
     </div>

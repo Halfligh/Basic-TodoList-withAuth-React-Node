@@ -10,12 +10,13 @@
 
 .General-section {
   display: flex;
+  align-items: center;
   width: 100%;
 }
 
 /* App-intro non-authenticated */
 .App-intro {
-  width: 50vw;
+  width: 50%;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -69,8 +70,8 @@
 
 /* App-content non-authenticated */
 .App-content {
-  width: 50vw;
-  height: 100vh;
+  width: 50%;
+  height: 50vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -92,7 +93,6 @@
 .Admin-content{
   display: flex;
   width: 100%;
-  justify-content: flex-start;
 }
 
 
