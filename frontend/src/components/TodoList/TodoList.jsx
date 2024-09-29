@@ -3,6 +3,7 @@ import { getUserTasks, createTask, updateTask, deleteTask } from "../../services
 import { getCookie } from "../../utils/cookie.js";
 import { decodeToken } from "../../utils/decodeToken.js";
 import "../TodoList/TodoList.css";
+import adminIcon from "../../assets/images/admin-icon.png";
 
 const TodoList = ({ title = "ToDoList", tasks: initialTasks = [], userId, onAddTask }) => {
   const [currentUser, setCurrentUser] = useState(null);
@@ -40,7 +41,8 @@ const TodoList = ({ title = "ToDoList", tasks: initialTasks = [], userId, onAddT
   const addTask = async () => {
     if (newTask.trim()) {
       if (onAddTask && userId) {
-        await onAddTask(userId, newTask); // Ajouter la tâche pour l'utilisateur via admin
+        await onAddTask(userId, newTask, () => loadTasks(userId)); // Passer loadTasks comme callback
+        setNewTask(""); // Réinitialiser le champ de nouvelle tâche
       } else {
         const taskData = {
           text: newTask,
@@ -116,9 +118,7 @@ const TodoList = ({ title = "ToDoList", tasks: initialTasks = [], userId, onAddT
               checked={task.completed}
               onChange={() => toggleTaskStatus(task)}
             />
-            {task.addByAdmin && (
-              <img src="/assets/images/admin-icon.png" alt="admin icon" className="admin-icon" />
-            )}
+            {task.addByAdmin && <img src={adminIcon} alt="admin icon" className="admin-icon" />}
             <span>{task.text}</span>
             <button onClick={() => removeTask(task._id, index)} className="delete-button">
               Supprimer

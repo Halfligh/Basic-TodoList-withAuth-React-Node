@@ -19,7 +19,7 @@ const AdminDashboard = ({ userRoles }) => {
     }
   }, [userRoles]);
 
-  const handleAddTaskForUser = async (userId, taskText) => {
+  const handleAddTaskForUser = async (userId, taskText, onTaskAdded) => {
     try {
       const newTask = {
         text: taskText,
@@ -31,6 +31,7 @@ const AdminDashboard = ({ userRoles }) => {
       // Recharger les tâches après l'ajout
       const updatedUsers = await getAllUsersWithTasks();
       setUsersWithTasks(updatedUsers.data);
+      onTaskAdded(); // Appel du callback pour signaler à TodoList de mettre à jour ses tâches
     } catch (error) {
       console.error("Erreur lors de l'ajout d'une tâche pour l'utilisateur", error);
     }
@@ -44,7 +45,13 @@ const AdminDashboard = ({ userRoles }) => {
           {console.log(`Passing onAddTask to TodoList for user: ${user._id}`)}
           {console.log("User object:", user)} {/* Log pour vérifier la structure de l'objet */}
           {/* Log pour vérifier */}
-          <TodoList tasks={user.tasks} userId={user._id} onAddTask={handleAddTaskForUser} />
+          <TodoList
+            tasks={user.tasks}
+            userId={user._id}
+            onAddTask={(userId, taskText, onTaskAdded) =>
+              handleAddTaskForUser(userId, taskText, onTaskAdded)
+            }
+          />
         </div>
       ))}
     </section>
