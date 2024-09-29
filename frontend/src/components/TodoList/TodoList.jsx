@@ -4,7 +4,7 @@ import { getCookie } from "../../utils/cookie.js";
 import { decodeToken } from "../../utils/decodeToken.js";
 import "../TodoList/TodoList.css";
 
-const TodoList = ({ title = "ToDoList", tasks: initialTasks = [] }) => {
+const TodoList = ({ title = "ToDoList", tasks: initialTasks = [], userId, onAddTask }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [tasks, setTasks] = useState(initialTasks);
   const [newTask, setNewTask] = useState("");
@@ -18,23 +18,13 @@ const TodoList = ({ title = "ToDoList", tasks: initialTasks = [] }) => {
     }
   }, []);
 
-  // Si aucune tâche n'est passée en props, alors récupérer les tâches via l'API
+  // Si initialTasks est vide et currentUser est défini, charger les tâches une seule fois.
   useEffect(() => {
-    if (!initialTasks.length) {
-      const token = getCookie("token");
-      if (token) {
-        const decodedToken = decodeToken(token);
-        setCurrentUser(decodedToken.userId);
-      }
-    }
-  }, [initialTasks]);
-
-  // Charger les tâches depuis l'API uniquement si elles ne sont pas passées en props
-  useEffect(() => {
-    if (currentUser && !initialTasks.length) {
+    if (!initialTasks.length && currentUser) {
       loadTasks(currentUser);
     }
-  }, [currentUser, initialTasks.length]);
+    // On ne met pas initialTasks dans le tableau de dépendances pour éviter les appels infinis
+  }, [currentUser]);
 
   // Fonction pour charger les tâches depuis l'API
   const loadTasks = async (userId) => {
@@ -49,23 +39,26 @@ const TodoList = ({ title = "ToDoList", tasks: initialTasks = [] }) => {
   // Fonction pour ajouter une nouvelle tâche
   const addTask = async () => {
     if (newTask.trim()) {
-      const taskData = {
-        text: newTask,
-        completed: false,
-        addByAdmin: false,
-        ownerId: currentUser,
-      };
-      console.log(taskData);
-      try {
-        const response = await createTask(taskData); // Utilisation du service pour créer une tâche
-        if (response.data && response.data._id) {
-          setTasks([...tasks, response.data]); // Mise à jour de la liste des tâches
-          setNewTask(""); // Réinitialiser le champ
-        } else {
-          console.error("Erreur : la tâche n’a pas d’ID");
+      if (onAddTask && userId) {
+        await onAddTask(userId, newTask); // Ajouter la tâche pour l'utilisateur via admin
+      } else {
+        const taskData = {
+          text: newTask,
+          completed: false,
+          addByAdmin: false, // L'utilisateur actuel ajoute la tâche pour lui-même
+          ownerId: currentUser, // Assigner la tâche au currentUser (utilisateur actuel)
+        };
+        try {
+          const response = await createTask(taskData); // Créer la tâche via l'API
+          if (response.data && response.data._id) {
+            setTasks([...tasks, response.data]); // Mise à jour de la liste des tâches
+            setNewTask(""); // Réinitialiser le champ
+          } else {
+            console.error("Erreur : la tâche n’a pas d’ID");
+          }
+        } catch (error) {
+          console.error("Erreur lors de la création de la tâche", error);
         }
-      } catch (error) {
-        console.error("Erreur lors de la création de la tâche", error);
       }
     } else {
       console.log("Le champ de la nouvelle tâche est vide.");

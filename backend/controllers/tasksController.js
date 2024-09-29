@@ -9,15 +9,14 @@ exports.createTask = async (req, res) => {
     // Rechercher l'utilisateur propriétaire de la tâche
     const owner = await User.findById(ownerId);
     if (!owner) {
-      console.log("Utilisateur non trouvé :", ownerId);
       return res.status(404).json({ message: "Utilisateur non trouvé" });
     }
 
     // Créer la tâche
     const newTask = new Task({
       text,
-      completed: completed || false, // Si completed n'est pas défini, il est mis à false
-      addByAdmin: addByAdmin || false, // Si addByAdmin n'est pas défini, il est mis à false
+      completed: completed || false,
+      addByAdmin: addByAdmin || false,
       owner: owner._id,
     });
 
@@ -28,7 +27,6 @@ exports.createTask = async (req, res) => {
     res.status(500).json({ message: "Erreur lors de la création de la tâche", error });
   }
 };
-
 // Récupérer toutes les tâches d'un utilisateur
 exports.getUserTasks = async (req, res) => {
   try {
@@ -117,6 +115,7 @@ exports.getAllUsersWithTasks = async (req, res) => {
       nonAdminUsers.map(async (user) => {
         const tasks = await Task.find({ owner: user._id }); // Récupère les tâches par utilisateur
         return {
+          _id: user._id,
           username: user.username,
           tasks,
         };
