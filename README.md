@@ -16,6 +16,7 @@ Frontend
 - Création des animations à la connexion
 - Création du composant Todo-list
 - Création du taskService
+- Création du composant AdminDashboard 
 
 Backend
 - Initialisation du package.json avec npm init
