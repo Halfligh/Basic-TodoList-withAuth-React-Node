@@ -17,6 +17,7 @@ Frontend
 - Création du composant Todo-list
 - Création du taskService
 - Création du composant AdminDashboard 
+- Adaptation de la logique de création des tâches via admin
 
 Backend
 - Initialisation du package.json avec npm init
