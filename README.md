@@ -31,6 +31,7 @@ Base de donnée
 - Création de la base de données sur mongoDB avec l'email : les54yt@gmail.com
 - Création de l'architecture avec les différents dossiers 
 - Création du script implémentant la fonctionnalité similaire au CLR pour créé automatiquement un utilisateur admin 
+- Ajustement du script pour créer automatiquement 3 utilisateurs (1 admin et 2 users) avec leur rôles si ils ne sont pas déjà créés
 
 
 Test frontend 
