@@ -26,6 +26,7 @@ Backend
 - Création de la logique back d'authentification
 - Stockage du token dans un cookie (httpOnly: false pour l'instant)
 - Création de la logique backend pour les tâches (model, controller, routes)
+- Création de la logiue pour admin 
 
 Base de donnée
 - Création de la base de données sur mongoDB avec l'email : les54yt@gmail.com
