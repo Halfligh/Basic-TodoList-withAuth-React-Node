@@ -45,7 +45,7 @@
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 4px;
-    overflow: hidden; /* Cache le texte qui dépasse */
+    overflow: hidden; 
   }
 
   .todo-list input {
@@ -54,10 +54,10 @@
   }
   
   .todo-list li .task-text {
-    flex: 1; /* Permet au texte de prendre l'espace disponible */
-    overflow: hidden; /* Cache le texte qui dépasse */
-    white-space: nowrap; /* Empêche le texte de passer à la ligne */
-    text-overflow: ellipsis; /* Ajoute les points de suspension (...) */
+    flex: 1; 
+    overflow: hidden; 
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
   
   .todo-list li.completed span {
@@ -81,7 +81,7 @@
   }
   
   .admin-icon {
-    width: 18px; 
-    height: 18px;
+    width: 35px; 
+    height: 30px;
     vertical-align: middle; 
   }

@@ -42,9 +42,6 @@ const AdminDashboard = ({ userRoles }) => {
       {usersWithTasks.map((user) => (
         <div key={user.username} className="user-todo">
           <h3>Todo-list de {user.username}</h3>
-          {console.log(`Passing onAddTask to TodoList for user: ${user._id}`)}
-          {console.log("User object:", user)} {/* Log pour vérifier la structure de l'objet */}
-          {/* Log pour vérifier */}
           <TodoList
             tasks={user.tasks}
             userId={user._id}
