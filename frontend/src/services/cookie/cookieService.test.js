@@ -6,7 +6,7 @@ import { checkCookieStatus } from "./cookieService"; // La fonction que vous tes
 jest.mock("axios");
 jest.mock("../../utils/cookie");
 
-describe("cookie", () => {
+describe("cookieService", () => {
   it("should return isAuthenticated: false when no token is present", async () => {
     // Simuler l'absence de cookie
     getCookie.mockReturnValue(null);
@@ -60,23 +60,23 @@ describe("cookie", () => {
     const result = await checkCookieStatus();
 
     // Vérifier que l'utilisateur n'est pas authentifié
-    expect(result).toEqual({ isAuthenticated: false });
+    expect(result).toEqual({ isAuthenticated: false, error: "User not authenticated" });
     expect(axios.get).toHaveBeenCalledWith("http://localhost:3001/api/auth/verifyToken", {
       withCredentials: true,
     });
   });
 
-  it("should handle other API errors and return isAuthenticated: false", async () => {
+  it("should return isAuthenticated: false and a generic error on other errors", async () => {
     // Simuler la présence d'un cookie
     getCookie.mockReturnValue("token");
 
-    // Simuler une autre erreur de l'API
-    axios.get.mockRejectedValueOnce(new Error("Network error"));
+    // Simuler une erreur réseau ou autre
+    axios.get.mockRejectedValueOnce(new Error("Network Error"));
 
     const result = await checkCookieStatus();
 
-    // Vérifier que l'utilisateur n'est pas authentifié
-    expect(result).toEqual({ isAuthenticated: false });
+    // Vérifier que l'utilisateur n'est pas authentifié avec une erreur générique
+    expect(result).toEqual({ isAuthenticated: false, error: "An error occurred" });
     expect(axios.get).toHaveBeenCalledWith("http://localhost:3001/api/auth/verifyToken", {
       withCredentials: true,
     });

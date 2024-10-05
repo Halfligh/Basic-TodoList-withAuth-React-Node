@@ -42,5 +42,6 @@ Test frontend
 - Création des tests pour les composants Login-Logout 
 - Création des tests pour les services AuthService et CookieService
 - Création du plan de test frontend sur figma
+- Création des tests pour le service TaskService et pour le composant principal App
 
 

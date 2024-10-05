@@ -1,12 +1,9 @@
-// services/cookieService.js
 import axios from "axios";
 import { getCookie } from "../../utils/cookie"; // Import de la fonction utilitaire pour les cookies
 
 export const checkCookieStatus = async () => {
   const token = getCookie("token");
-  console.log("Token récupéré :", token);
   if (!token) {
-    console.log("Aucun cookie présent, utilisateur non authentifié");
     return { isAuthenticated: false };
   }
 
@@ -15,17 +12,14 @@ export const checkCookieStatus = async () => {
       withCredentials: true,
     });
 
-    if (response.data.success) {
-      return { isAuthenticated: true };
-    } else {
-      return { isAuthenticated: false };
-    }
+    return { isAuthenticated: response.data.success };
   } catch (error) {
+    // Si c'est une erreur 401, renvoyer une erreur d'authentification
     if (error.response && error.response.status === 401) {
-      console.log("Utilisateur non authentifié");
-    } else {
-      console.error("Erreur lors de la vérification du token", error);
+      return { isAuthenticated: false, error: "User not authenticated" };
     }
-    return { isAuthenticated: false };
+
+    // Pour toute autre erreur, simplement retourner isAuthenticated: false
+    return { isAuthenticated: false, error: "An error occurred" };
   }
 };
