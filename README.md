@@ -4,6 +4,7 @@
 
 Projet démo 
 Application basique de todo-list avec authentification sécurisée par token et privilèges administrateurs.
+Utilisation de node 22..7.0 
 
 Frontend
 - Initialisation du projet avec Create React App
@@ -35,7 +36,7 @@ Base de donnée
 - Ajustement du script pour créer automatiquement 3 utilisateurs (1 admin et 2 users) avec leur rôles si ils ne sont pas déjà créés
 
 
-Test frontend 
+Tests frontend 
 - Installation de Jest et React Testing Library 
 - Installation de nvm en local pour gestionnaire de version Node
 - Utilisation de la version LTS 20.17.0
@@ -45,4 +46,5 @@ Test frontend
 - Création des tests pour le service TaskService et pour le composant principal App
 - Mise à jour du plan de tests sur figma
 
-
+Tests backend 
+- Installation de mocha et chai 

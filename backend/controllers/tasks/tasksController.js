@@ -1,5 +1,5 @@
-const Task = require("../models/Task"); // Importer le modèle Task
-const User = require("../models/User"); // Importer le modèle User (si nécessaire)
+const Task = require("../../models/Task");
+const User = require("../../models/User");
 
 // Créer une tâche
 exports.createTask = async (req, res) => {

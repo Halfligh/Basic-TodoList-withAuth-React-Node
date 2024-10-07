@@ -2,9 +2,9 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
-const authRoutes = require("./routes/authRoutes");
-const usersRoutes = require("./routes/usersRoutes");
-const tasksRoutes = require("./routes/tasksRoutes");
+const authRoutes = require("./routes/auth/authRoutes");
+const usersRoutes = require("./routes/users/usersRoutes");
+const tasksRoutes = require("./routes/tasks/tasksRoutes");
 const initInitialUsers = require("./scripts/initInitialUsers");
 
 const app = express();
