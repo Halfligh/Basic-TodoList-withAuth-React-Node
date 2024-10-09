@@ -47,4 +47,4 @@ Tests frontend
 - Mise à jour du plan de tests sur figma
 
 Tests backend 
-- Installation de mocha et chai 
+- Installation de mocha et chai  
