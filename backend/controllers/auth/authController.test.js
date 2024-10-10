@@ -1,10 +1,10 @@
-const chai = require("chai");
-const chaiHttp = require("chai-http");
-const sinon = require("sinon");
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
-const { login, verifyToken, logout } = require("../controllers/authController");
-const User = require("../models/User");
+import * as chai from "chai";
+import chaiHttp from "chai-http";
+import sinon from "sinon";
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
+import { login, verifyToken, logout } from "../auth/authController.js";
+import User from "../../models/User.js";
 
 // Importation des bibliothèques nécessaires pour les tests
 chai.use(chaiHttp); // Ajoute chai-http à chai pour permettre des requêtes HTTP dans les tests

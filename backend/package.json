@@ -2,8 +2,9 @@
   "name": "backend",
   "version": "1.0.0",
   "main": "app.js",
+  "type": "module",
   "scripts": {
-    "test": "mocha **/*.test.js",
+    "test": "mocha --exclude 'node_modules/**' **/*.test.js",
     "start": "node server.js"
   },
   "author": "",
@@ -19,6 +20,7 @@
     "mongoose": "^8.6.3"
   },
   "devDependencies": {
+    "@sinonjs/referee-sinon": "^12.0.0",
     "@types/bcrypt": "^5.0.2",
     "@types/express": "^4.17.21",
     "@types/jsonwebtoken": "^9.0.7",

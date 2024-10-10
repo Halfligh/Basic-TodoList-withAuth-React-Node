@@ -1,10 +1,9 @@
-// backend/controllers/authController.js
-const User = require("../../models/User");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+import User from "../../models/User.js";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 // Connexion d'un utilisateur
-exports.login = async (req, res) => {
+export const login = async (req, res) => {
   const { username, password } = req.body;
 
   try {
@@ -44,7 +43,7 @@ exports.login = async (req, res) => {
   }
 };
 
-exports.verifyToken = (req, res) => {
+export const verifyToken = (req, res) => {
   const token = req.cookies.token;
 
   if (!token) {
@@ -60,7 +59,7 @@ exports.verifyToken = (req, res) => {
   }
 };
 
-exports.logout = (req, res) => {
+export const logout = (req, res) => {
   res.clearCookie("token"); // Vide le cookie qui donc se supprime
   res.status(200).json({ success: true, message: "Déconnexion réussie" });
 };
