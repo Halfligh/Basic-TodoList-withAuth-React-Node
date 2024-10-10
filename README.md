@@ -47,4 +47,8 @@ Tests frontend
 - Mise à jour du plan de tests sur figma
 
 Tests backend 
-- Installation de mocha et chai  
+- Installation des dépendances pour les tests 
+- chai : assertion library pour écrire des tests
+- chai-http : pour simuler des requêtes HTTP
+- sinon : pour simuler et espionner des fonctions
+- sinon-chai : pour intégrer sinon avec chai
