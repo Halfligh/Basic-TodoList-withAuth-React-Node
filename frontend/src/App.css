@@ -120,17 +120,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  transform: translateX(50%);
-  animation: FromRight 1s forwards;
+  opacity: 0;
+  animation: FadeFromRight 1.5s forwards;
 }
 
 .todo-list-section {
   opacity: 0;
   animation: FadeIn 1s 1s forwards;
-}
-
-.admin-view-section {
-  /* Autres sections si nécessaire */
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -169,6 +165,18 @@
   
    to {
     transform: translateX(0);
+   }
+}
+
+@keyframes FadeFromRight {
+  from {
+    transform: translateX(200%);
+   }
+  
+   to {
+    opacity: 1;
+    transform: translateX(0);
+
    }
 }
 
