@@ -1,14 +1,12 @@
-const express = require("express");
-const router = express.Router();
-const usersCtrl = require("../../controllers/users/usersController");
+import express from "express";
+import { getAllUsers, getOneUser } from "../../controllers/users/usersController.js";
 
-// Route pour créer un utilisateur
-router.post("/createUser", usersCtrl.createUser);
+const router = express.Router();
 
 // Route pour obtenir tous les utilisateurs
-router.get("/getAllUsers", usersCtrl.getAllUsers);
+router.get("/getAllUsers", getAllUsers);
 
 // Route pour obtenir un utilisateur spécifique
-router.get("/getOneUser/:id", usersCtrl.getOneUser);
+router.get("/getOneUser/:id", getOneUser);
 
-module.exports = router;
+export default router;

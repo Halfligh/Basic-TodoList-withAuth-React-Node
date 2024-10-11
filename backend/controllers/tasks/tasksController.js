@@ -1,8 +1,8 @@
-const Task = require("../../models/Task");
-const User = require("../../models/User");
+import Task from "../../models/Task.js";
+import User from "../../models/User.js";
 
 // Créer une tâche
-exports.createTask = async (req, res) => {
+export const createTask = async (req, res) => {
   try {
     const { text, completed, addByAdmin, ownerId } = req.body;
 
@@ -28,7 +28,7 @@ exports.createTask = async (req, res) => {
   }
 };
 // Récupérer toutes les tâches d'un utilisateur
-exports.getUserTasks = async (req, res) => {
+export const getUserTasks = async (req, res) => {
   try {
     const userId = req.params.id; // Récupérer l'ID utilisateur depuis les paramètres de l'URL
     const tasks = await Task.find({ owner: userId }); // Récupérer les tâches de l'utilisateur
@@ -39,7 +39,7 @@ exports.getUserTasks = async (req, res) => {
   }
 };
 // Récupérer toutes les tâches
-exports.getAllTasks = async (req, res) => {
+export const getAllTasks = async (req, res) => {
   try {
     const tasks = await Task.find().populate("owner"); // Optionnel: utiliser populate pour récupérer l'utilisateur
     res.status(200).json(tasks);
@@ -49,7 +49,7 @@ exports.getAllTasks = async (req, res) => {
 };
 
 // Récupérer une tâche par ID
-exports.getTaskById = async (req, res) => {
+export const getTaskById = async (req, res) => {
   try {
     const task = await Task.findById(req.params.id).populate("owner");
     if (!task) {
@@ -62,7 +62,7 @@ exports.getTaskById = async (req, res) => {
 };
 
 // Mettre à jour une tâche
-exports.updateTask = async (req, res) => {
+export const updateTask = async (req, res) => {
   try {
     const { text, completed, addByAdmin } = req.body;
 
@@ -87,7 +87,7 @@ exports.updateTask = async (req, res) => {
 };
 
 // Supprimer une tâche
-exports.deleteTask = async (req, res) => {
+export const deleteTask = async (req, res) => {
   try {
     const deletedTask = await Task.findByIdAndDelete(req.params.id);
 
@@ -102,7 +102,7 @@ exports.deleteTask = async (req, res) => {
 };
 
 // Récupérer tous les utilisateurs avec leurs tâches respectives (réservé aux administrateurs)
-exports.getAllUsersWithTasks = async (req, res) => {
+export const getAllUsersWithTasks = async (req, res) => {
   try {
     // Récupérer tous les utilisateurs
     const users = await User.find({});

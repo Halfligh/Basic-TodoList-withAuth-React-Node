@@ -1,6 +1,4 @@
-// backend/models/Task.js
-
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const taskSchema = new mongoose.Schema({
   text: { type: String, required: true },

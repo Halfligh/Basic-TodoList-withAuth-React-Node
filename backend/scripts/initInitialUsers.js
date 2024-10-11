@@ -1,5 +1,5 @@
 // backend/initAdminUser.js
-const User = require("../models/User");
+import User from "../models/User.js";
 
 async function createUserIfNotExists(username, password, roles) {
   try {
@@ -35,4 +35,4 @@ async function initInitialUsers() {
   }
 }
 
-module.exports = initInitialUsers;
+export default initInitialUsers;

@@ -1,5 +1,5 @@
-const http = require("http");
-const app = require("./app");
+import http from "http";
+import app from "./app.js";
 
 // Renvoit un port valide, qu'il soit fourni sous forme de numéro ou de chaîne
 const normalizePort = (val) => {
@@ -40,11 +40,10 @@ const errorHandler = (error) => {
 // Création du serveur et de l'écouteur d'événements sur le port
 const server = http.createServer(app);
 
-// Renvoyer le serveur au lieu de l'application
-module.exports = server;
-
 // Gérer les erreurs et démarrer le serveur
 server.on("error", errorHandler);
 server.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
+
+export default server;

@@ -1,11 +1,11 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
-const cookieParser = require("cookie-parser");
-const authRoutes = require("./routes/auth/authRoutes");
-const usersRoutes = require("./routes/users/usersRoutes");
-const tasksRoutes = require("./routes/tasks/tasksRoutes");
-const initInitialUsers = require("./scripts/initInitialUsers");
+import express from "express";
+import mongoose from "mongoose";
+import cors from "cors";
+import cookieParser from "cookie-parser";
+import authRoutes from "./routes/auth/authRoutes.js";
+import usersRoutes from "./routes/users/usersRoutes.js";
+import tasksRoutes from "./routes/tasks/tasksRoutes.js";
+import initInitialUsers from "./scripts/initInitialUsers.js";
 
 const app = express();
 
@@ -52,4 +52,4 @@ app.use((err, req, res, next) => {
   next(err);
 });
 
-module.exports = app;
+export default app;

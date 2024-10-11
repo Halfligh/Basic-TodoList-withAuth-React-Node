@@ -1,14 +1,15 @@
-const express = require("express");
+import express from "express";
+import { login, verifyToken, logout } from "../../controllers/auth/authController.js";
+
 const router = express.Router();
-const authController = require("../../controllers/auth/authController");
 
 // Route pour la connexion d'un utilisateur
-router.post("/login", authController.login);
+router.post("/login", login);
 
 // Route pour vérifier la validité du token
-router.get("/verifyToken", authController.verifyToken);
+router.get("/verifyToken", verifyToken);
 
 // Route pour la déconnexion
-router.post("/logout", authController.logout);
+router.post("/logout", logout);
 
-module.exports = router;
+export default router;

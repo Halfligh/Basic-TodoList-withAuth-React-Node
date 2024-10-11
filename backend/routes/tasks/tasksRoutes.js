@@ -1,26 +1,35 @@
-const express = require("express");
+import express from "express";
+import {
+  createTask,
+  getAllTasks,
+  getAllUsersWithTasks,
+  getUserTasks,
+  getTaskById,
+  updateTask,
+  deleteTask,
+} from "../../controllers/tasks/tasksController.js";
+
 const router = express.Router();
-const tasksController = require("../../controllers/tasks/tasksController");
 
 // Créer une nouvelle tâche
-router.post("/create", tasksController.createTask);
+router.post("/create", createTask);
 
 // Récupérer toutes les tâches
-router.get("/", tasksController.getAllTasks);
+router.get("/", getAllTasks);
 
 // Route pour récupérer tous les utilisateurs avec leurs tâches
-router.get("/allUsersWithTasks", tasksController.getAllUsersWithTasks);
+router.get("/allUsersWithTasks", getAllUsersWithTasks);
 
 // Récupérer toutes les tâches d'un utilisateur
-router.get("/user/:id", tasksController.getUserTasks);
+router.get("/user/:id", getUserTasks);
 
 // Récupérer une tâche par ID
-router.get("/:id", tasksController.getTaskById);
+router.get("/:id", getTaskById);
 
 // Mettre à jour une tâche
-router.put("/:id", tasksController.updateTask);
+router.put("/:id", updateTask);
 
 // Supprimer une tâche
-router.delete("/:id", tasksController.deleteTask);
+router.delete("/:id", deleteTask);
 
-module.exports = router;
+export default router;
