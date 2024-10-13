@@ -53,4 +53,4 @@ Tests backend
 - sinon : pour simuler et espionner des fonctions
 - sinon-chai : pour intégrer sinon avec chai
 - Intégrer le lancement des tests dans les scripts du package json : "test": "mocha --exclude 'node_modules/**' **/*.test.js",
-- NB : Bien penser à exclure node_modules des tests pour éviter qu'il déclenche les tests en interne des dépendances
+- NB : Bien penser à exclure node_modules des tests pour éviter qu'il déclenche les tests en interne des dépendances 
