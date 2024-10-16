@@ -4,7 +4,7 @@
 
 Projet démo 
 Application basique de todo-list avec authentification sécurisée par token et privilèges administrateurs.
-Utilisation de node 22..7.0 
+Utilisation de node 22.7.0 
 
 Plan des tests 
 
