@@ -6,6 +6,11 @@ Projet démo
 Application basique de todo-list avec authentification sécurisée par token et privilèges administrateurs.
 Utilisation de node 22..7.0 
 
+Plan des tests 
+
+![Tests-Angular-Spring-Sébastien (1)](https://github.com/user-attachments/assets/46fb7a82-736c-488f-ac5d-3e434da3b5b2)
+
+
 Frontend
 - Initialisation du projet avec Create React App
 - Strucuration du projet en frontend/backend 
@@ -55,4 +60,5 @@ Tests backend
 - Intégrer le lancement des tests dans les scripts du package json : "test": "mocha --exclude 'node_modules/**' **/*.test.js",
 - NB : Bien penser à exclure node_modules des tests pour éviter qu'il déclenche les tests en interne des dépendances 
 - Finalisation des tests backend pour les trois controlleurs (authController, usersController et tasksController)
-- Mise à jour du plan de testing sur figma 
+- Mise à jour du plan de testing sur figma
+
