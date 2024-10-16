@@ -54,3 +54,5 @@ Tests backend
 - sinon-chai : pour intégrer sinon avec chai
 - Intégrer le lancement des tests dans les scripts du package json : "test": "mocha --exclude 'node_modules/**' **/*.test.js",
 - NB : Bien penser à exclure node_modules des tests pour éviter qu'il déclenche les tests en interne des dépendances 
+- Finalisation des tests backend pour les trois controlleurs (authController, usersController et tasksController)
+- Mise à jour du plan de testing sur figma 

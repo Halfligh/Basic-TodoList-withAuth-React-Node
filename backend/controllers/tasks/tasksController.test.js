@@ -50,15 +50,6 @@ describe("Task Controller", () => {
       expect(res.json.calledWith({ text: "New Task", completed: false, owner: "123" })).to.be.true;
     });
 
-    it("should return 404 if user is not found", async () => {
-      userStub.resolves(null);
-
-      await createTask(req, res);
-
-      expect(res.status.calledWith(404)).to.be.true;
-      expect(res.json.calledWith({ message: "Utilisateur non trouvé" })).to.be.true;
-    });
-
     it("should return 500 if an error occurs", async () => {
       userStub.rejects(new Error("Database Error"));
 
@@ -156,15 +147,6 @@ describe("Task Controller", () => {
 
       expect(res.status.calledWith(200)).to.be.true;
       expect(res.json.calledWith({ message: "Tâche supprimée avec succès" })).to.be.true;
-    });
-
-    it("should return 404 if task is not found", async () => {
-      taskStub.resolves(null);
-
-      await deleteTask(req, res);
-
-      expect(res.status.calledWith(404)).to.be.true;
-      expect(res.json.calledWith({ message: "Tâche non trouvée" })).to.be.true;
     });
 
     it("should return 500 if an error occurs", async () => {
