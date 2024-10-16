@@ -10,7 +10,7 @@ import {
   updateTask,
   deleteTask,
   getAllUsersWithTasks,
-} from "../../controllers/tasksController.js";
+} from "./tasksController.js";
 
 const { expect } = chai;
 
