@@ -34,7 +34,6 @@ export const getUserTasks = async (req, res) => {
     const tasks = await Task.find({ owner: userId }); // Récupérer les tâches de l'utilisateur
     res.status(200).json(tasks);
   } catch (error) {
-    console.error("Erreur lors de la récupération des tâches", error);
     res.status(500).json({ message: "Erreur lors de la récupération des tâches", error });
   }
 };
@@ -55,9 +54,9 @@ export const getTaskById = async (req, res) => {
     if (!task) {
       return res.status(404).json({ message: "Tâche non trouvée" });
     }
-    res.status(200).json(task);
+    return res.status(200).json(task);
   } catch (error) {
-    res.status(500).json({ message: "Erreur lors de la récupération de la tâche", error });
+    return res.status(500).json({ message: "Erreur lors de la récupération de la tâche", error });
   }
 };
 
