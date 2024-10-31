@@ -1,49 +1,21 @@
-import React, { useState, useEffect } from "react";
 import logo from "./logo.svg";
 import "./App.css";
+import { useState, useEffect } from "react";
 
 import Login from "./components/Login/Login";
 import Logout from "./components/Logout/Logout";
 import AdminDashboard from "./components/AdminDashboard/AdminDashboard";
-import TodoList from "./components/TodoList/TodoList";
 import { checkCookieStatus } from "./services/cookie/cookieService";
 import { getCookie } from "./utils/cookie";
 import { decodeToken } from "./utils/decodeToken";
-import { getAllUsersWithTasks, createTask } from "./services/task/taskService"; // Assurez-vous que ces méthodes sont bien définies
+import TodoList from "./components/TodoList/TodoList";
 
+// Fonction utilitaire pour vérifier la présence du cookie "token"
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [authChecked, setAuthChecked] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   const [userRoles, setUserRoles] = useState([]);
-  const [usersWithTasks, setUsersWithTasks] = useState([]); // État pour stocker les utilisateurs avec leurs tâches
-
-  // Charger les utilisateurs et leurs tâches
-  const fetchUsersWithTasks = async () => {
-    try {
-      const response = await getAllUsersWithTasks();
-      setUsersWithTasks(response.data);
-    } catch (error) {
-      console.error("Erreur lors de la récupération des utilisateurs et des tâches", error);
-    }
-  };
-
-  // Gérer l'ajout d'une tâche pour un utilisateur
-  const handleAddTaskForUser = async (userId, taskText, onTaskAdded) => {
-    try {
-      const newTask = {
-        text: taskText,
-        completed: false,
-        addByAdmin: true,
-        ownerId: userId,
-      };
-      await createTask(newTask);
-      await fetchUsersWithTasks();
-      onTaskAdded();
-    } catch (error) {
-      console.error("Erreur lors de l'ajout d'une tâche pour l'utilisateur", error);
-    }
-  };
 
   // Surveillance de l'authentification
   useEffect(() => {
@@ -51,17 +23,19 @@ function App() {
       const { isAuthenticated } = await checkCookieStatus();
       setIsAuthenticated(isAuthenticated);
       setAuthChecked(true);
-      if (isAuthenticated) {
-        fetchUsersWithTasks(); // Charger les données une fois authentifié
-      }
     };
 
     fetchAuthStatus();
   }, []);
 
+  // Appelée lorsque l'utilisateur se connecte avec succès
+  const handleLogin = () => {
+    setIsAuthenticated(true);
+  };
+
   // Récupérer l'id de l'utilisateur actuel via le token stocké dans le cookie
   useEffect(() => {
-    const token = getCookie("token");
+    const token = getCookie("token"); // Récupère le token dans le cookie
     if (token) {
       const decodedToken = decodeToken(token);
       setCurrentUser(decodedToken.username);
@@ -69,15 +43,11 @@ function App() {
     }
   }, [isAuthenticated]);
 
-  // Appelée lorsque l'utilisateur se connecte avec succès
-  const handleLogin = () => {
-    setIsAuthenticated(true);
-  };
-
   // Appelée lorsque l'utilisateur se déconnecte
   const handleLogout = () => {
     setIsAuthenticated(false);
   };
+
   return (
     <div className="App">
       <div className="General-section">
@@ -127,11 +97,7 @@ function App() {
 
       {isAuthenticated && userRoles.includes("admin") ? (
         <div className="Admin-content">
-          <AdminDashboard
-            usersWithTasks={usersWithTasks}
-            onFetchUsersWithTasks={fetchUsersWithTasks}
-            onAddTask={handleAddTaskForUser}
-          />{" "}
+          <AdminDashboard userRoles={userRoles} />
         </div>
       ) : null}
     </div>
