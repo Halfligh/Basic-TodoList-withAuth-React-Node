@@ -49,6 +49,7 @@ Tests frontend
 - Création des tests pour les services AuthService et CookieService
 - Création du plan de test frontend sur figma
 - Création des tests pour le service TaskService et pour le composant principal App
+- Création des tests pour AdminDashboard et pour TodoList
 - Mise à jour du plan de tests sur figma
 
 Tests backend 
