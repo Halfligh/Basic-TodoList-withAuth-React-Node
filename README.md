@@ -1,14 +1,21 @@
 # React-Node-MongoDB testé par Jest/React-testing-library/Mocha
-![Stack (1)](https://github.com/user-attachments/assets/e5293f41-199c-4839-838f-04dcf3ef0a1e)  ![Tests (3)](https://github.com/user-attachments/assets/86d35847-92fd-4933-a32d-cf259642679e)
+![Stack (1)](https://github.com/user-attachments/assets/e5293f41-199c-4839-838f-04dcf3ef0a1e)  
+
+**Testés via :** 
+
+![Tests (3)](https://github.com/user-attachments/assets/86d35847-92fd-4933-a32d-cf259642679e)
 
 
 Projet démo 
 Application basique de todo-list avec authentification sécurisée par token et privilèges administrateurs.
-Utilisation de node 22.7.0 
+
+
+**Utilisation de node 22.7.0**
 
 Plan des tests 
 
-![Tests-Angular-Spring-Sébastien (1)](https://github.com/user-attachments/assets/46fb7a82-736c-488f-ac5d-3e434da3b5b2)
+![Tests-Angular-Spring-Sébastien (2)](https://github.com/user-attachments/assets/31480d89-6ad1-4d9c-bfd7-140ff40a4398)
+
 
 
 Frontend
@@ -30,9 +37,9 @@ Backend
 - Installation des dépendances nécessaires (mongoose, express, bcrypt, helmet, jsonwebtoken, cors, cookie-parser)
 - Configuration du server et de sa connexion à la base de données
 - Création de la logique back d'authentification
-- Stockage du token dans un cookie (httpOnly: false pour l'instant)
+- Stockage du token dans un cookie
 - Création de la logique backend pour les tâches (model, controller, routes)
-- Création de la logiue pour admin 
+- Création de la logique pour l'ajout via admin 
 
 Base de donnée
 - Création de la base de données sur mongoDB avec l'email : les54yt@gmail.com
