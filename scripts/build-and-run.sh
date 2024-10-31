@@ -7,15 +7,15 @@ backend_tests_status="SUCCESS"
 # Afficher le répertoire courant pour vérification
 echo "Répertoire actuel : $(pwd)"
 
-# Aller dans le répertoire du projet Angular (frontend)
+# Aller dans le répertoire frontend
 if [ -d "frontend" ]; then
   cd frontend
   npm install
-  npm run build
+  CI=false npm run build
   echo "Build front React terminé"
   
-  # Exécuter les tests Angular en utilisant la version locale d'Angular CLI
-  ./node_modules/.bin/ng test --watch=false
+  # Exécuter les tests du code React avec Jest & React Testing Library
+  CI=false npm run test
   if [ $? -ne 0 ]; then
     echo "Les tests front-end ont échoué."
     frontend_tests_status="FAILURE"
@@ -28,12 +28,12 @@ else
   exit 1
 fi
 
-# Aller dans le répertoire du projet Spring Boot (backend)
+# Aller dans le répertoire backend
 if [ -d "backend" ]; then
   cd backend
   fi
 
-  # Exécuter les tests backend
+  # Exécuter les tests du code Node avec Mocha et Chaï 
   npm test
   if [ $? -ne 0 ]; then
     echo "Les tests back-end ont échoué."

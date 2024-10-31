@@ -25,7 +25,7 @@ const TodoList = ({ title = "ToDoList", tasks: initialTasks = [], userId, onAddT
       loadTasks(currentUser);
     }
     // On ne met pas initialTasks dans le tableau de dépendances pour éviter les appels infinis
-  }, [currentUser]);
+  }, [currentUser, initialTasks.length]);
 
   // Fonction pour charger les tâches depuis l'API
   const loadTasks = async (userId) => {
@@ -112,7 +112,7 @@ const TodoList = ({ title = "ToDoList", tasks: initialTasks = [], userId, onAddT
 
       <ul className="todo-list">
         {tasks.map((task, index) => (
-          <li key={task._id} className={task.completed ? "completed" : ""}>
+          <li key={task._id || index} className={task.completed ? "completed" : ""}>
             <input
               type="checkbox"
               checked={task.completed}

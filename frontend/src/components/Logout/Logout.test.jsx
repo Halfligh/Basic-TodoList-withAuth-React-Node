@@ -6,15 +6,15 @@ const axios = require("axios");
 
 jest.mock("axios");
 
-describe("Login Component", () => {
+describe("Logout Component", () => {
   test("should render correctly", () => {
     render(<Logout onLogout={() => {}} />);
     expect(screen.getByText(/Déconnexion/i)).toBeInTheDocument();
   });
 
-  test("should calls onLogout after successful API call", async () => {
+  test("should call onLogout after successful API call", async () => {
     const mockOnLogout = jest.fn();
-    axios.post = jest.fn().mockResolvedValueOnce({}); // Simuler la réussite de l'appel API
+    axios.post.mockResolvedValueOnce({}); // Simuler la réussite de l'appel API
 
     render(<Logout onLogout={mockOnLogout} />);
     fireEvent.click(screen.getByText(/Déconnexion/i));
@@ -23,16 +23,13 @@ describe("Login Component", () => {
     await waitFor(() => expect(mockOnLogout).toHaveBeenCalled());
   });
 
-  test("should logs an error when the logout API call fails", async () => {
-    console.error = jest.fn(); // Mock de la console pour capturer les erreurs
-    axios.post = jest.fn().mockRejectedValueOnce(new Error("Erreur de déconnexion")); // Simuler une erreur API
+  test("should display an error message when the logout API call fails", async () => {
+    axios.post.mockRejectedValueOnce(new Error("Erreur de déconnexion")); // Simuler une erreur API
 
     render(<Logout onLogout={() => {}} />);
     fireEvent.click(screen.getByText(/Déconnexion/i));
 
-    // Attendre que l'appel échoue et vérifier que l'erreur est loggée
-    await waitFor(() =>
-      expect(console.error).toHaveBeenCalledWith("Erreur lors de la déconnexion", expect.any(Error))
-    );
+    // Vérifier qu'un message d'erreur est affiché
+    expect(await screen.findByText(/Erreur lors de la déconnexion/)).toBeInTheDocument();
   });
 });

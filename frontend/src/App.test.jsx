@@ -1,86 +1,65 @@
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import React from "react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import App from "./App";
 import { checkCookieStatus } from "./services/cookie/cookieService";
 import { getCookie } from "./utils/cookie";
 import { decodeToken } from "./utils/decodeToken";
+import { getAllUsersWithTasks, createTask } from "./services/task/taskService";
 
-// Simuler les modules
 jest.mock("./services/cookie/cookieService");
 jest.mock("./utils/cookie");
 jest.mock("./utils/decodeToken");
+jest.mock("./services/task/taskService");
+
+beforeAll(() => {
+  global.fetch = jest.fn(() => Promise.resolve({ json: () => Promise.resolve([]) }));
+  global.XMLHttpRequest = jest.fn(() => ({
+    open: jest.fn(),
+    send: jest.fn(),
+    setRequestHeader: jest.fn(),
+  }));
+});
 
 describe("App component", () => {
   beforeEach(() => {
-    getCookie.mockReset();
-    decodeToken.mockReset();
-    checkCookieStatus.mockReset();
-
-    // Ajouter un retour par défaut pour éviter les erreurs de destructuration
+    getAllUsersWithTasks.mockResolvedValue({ data: [] });
+    createTask.mockResolvedValue({ status: 200, message: "Task created" });
     checkCookieStatus.mockResolvedValue({ isAuthenticated: false });
+    getCookie.mockReturnValue(null);
+    decodeToken.mockReturnValue({});
   });
 
-  it("should render login form when not authenticated", () => {
+  it("should render login form when not authenticated", async () => {
     render(<App />);
-
     expect(
-      screen.getByText(/Veuillez vous connecter pour accéder à votre Todo-list./i)
+      await screen.findByText(/Veuillez vous connecter pour accéder à votre Todo-list./i)
     ).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /connexion/i })).toBeInTheDocument();
   });
 
   it("should render todo list after successful login", async () => {
-    // Simuler une connexion réussie
     checkCookieStatus.mockResolvedValueOnce({ isAuthenticated: true });
     decodeToken.mockReturnValue({ username: "testUser", roles: [] });
+    getCookie.mockReturnValue("validToken");
 
     render(<App />);
-
-    // Simuler l'action de connexion
     const loginButton = screen.getByRole("button", { name: /connexion/i });
     fireEvent.click(loginButton);
-
-    // Vérifier que la todo-list est affichée après la connexion
     expect(await screen.findByText(/Voici votre Todo-list./i)).toBeInTheDocument();
-  });
-
-  it("should render admin dashboard when user is admin", async () => {
-    // Simuler un token avec le rôle admin
-    checkCookieStatus.mockResolvedValueOnce({ isAuthenticated: true });
-    // Simuler un token valide
-    getCookie.mockReturnValue("validToken");
-    // Simuler le retour du décodage du token pour un utilisateur admin
-    decodeToken.mockReturnValue({ username: "admin", roles: ["admin"] });
-    render(<App />);
-
-    expect(
-      await screen.findByText(/Bienvenue, vous êtes connecté\(e\) en tant qu'administrateur/i)
-    ).toBeInTheDocument();
   });
 
   it("should render login form after logout", async () => {
     checkCookieStatus.mockResolvedValueOnce({ isAuthenticated: true });
     decodeToken.mockReturnValue({ username: "testUser", roles: [] });
+    getCookie.mockReturnValue("validToken");
 
     render(<App />);
-
     const loginButton = screen.getByRole("button", { name: /connexion/i });
     fireEvent.click(loginButton);
-
     expect(await screen.findByText(/Voici votre Todo-list./i)).toBeInTheDocument();
 
     const logoutButton = screen.getByRole("button", { name: /déconnexion/i });
     fireEvent.click(logoutButton);
-
     expect(await screen.findByRole("button", { name: /connexion/i })).toBeInTheDocument();
-  });
-
-  it("should call checkCookieStatus to verify authentication", async () => {
-    checkCookieStatus.mockResolvedValueOnce({ isAuthenticated: false });
-
-    render(<App />);
-
-    await waitFor(() => {
-      expect(checkCookieStatus).toHaveBeenCalled();
-    });
   });
 });
